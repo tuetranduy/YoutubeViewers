@@ -1,17 +1,20 @@
 ﻿using System.Windows.Input;
+using YoutubeViewers.WPF.Models;
 
 namespace YoutubeViewers.WPF.ViewModels
 {
     public class YouTubeViewerListingItemViewModel : ViewModelBase
     {
-        public string Username { get; }
+        public YouTubeViewer YouTubeViewer { get; }
+
+        public string Username => YouTubeViewer.Username;
 
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public YouTubeViewerListingItemViewModel(string username)
+        public YouTubeViewerListingItemViewModel(YouTubeViewer youTubeViewer)
         {
-            Username = username;
+            YouTubeViewer = youTubeViewer;
         }
     }
 }

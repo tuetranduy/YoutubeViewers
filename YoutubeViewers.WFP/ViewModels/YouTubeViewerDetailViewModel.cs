@@ -1,4 +1,5 @@
-﻿using YoutubeViewers.WPF.Stores;
+﻿using System;
+using YoutubeViewers.WPF.Stores;
 
 namespace YoutubeViewers.WPF.ViewModels
 {
@@ -6,13 +7,31 @@ namespace YoutubeViewers.WPF.ViewModels
     {
         private readonly SelectedYouTubeViewerStore _selectedYouTubeViewerStore;
 
-        public string Username => _selectedYouTubeViewerStore.SelectedYouTubeViewer?.Username;
+        public bool HasSelectedYouTubeViewer => _selectedYouTubeViewerStore.SelectedYouTubeViewer != null;
+        public string Username => _selectedYouTubeViewerStore.SelectedYouTubeViewer?.Username ?? "Unknown";
         public string IsSubscribedDisplay => _selectedYouTubeViewerStore.SelectedYouTubeViewer?.IsSubscribed == true ? "Yes" : "No";
         public string IsMemberDisplay => _selectedYouTubeViewerStore.SelectedYouTubeViewer?.IsMember == true ? "Yes" : "No";
 
         public YouTubeViewerDetailViewModel(SelectedYouTubeViewerStore selectedYouTubeViewerStore)
         {
             _selectedYouTubeViewerStore = selectedYouTubeViewerStore;
+
+            _selectedYouTubeViewerStore.SelectedYouTubeViewerChanged += SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged;
+        }
+
+        protected override void Dispose()
+        {
+            _selectedYouTubeViewerStore.SelectedYouTubeViewerChanged -= SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged;
+
+            base.Dispose();
+        }
+
+        private void SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged()
+        {
+            OnPropertyChanged(nameof(HasSelectedYouTubeViewer));
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(IsSubscribedDisplay));
+            OnPropertyChanged(nameof(IsMemberDisplay));
         }
     }
 }
