@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using YoutubeViewers.WPF.Stores;
 using YoutubeViewers.WPF.ViewModels;
 
 namespace YoutubeViewers.WPF
@@ -8,13 +9,19 @@ namespace YoutubeViewers.WPF
     /// </summary>
     public partial class App : Application
     {
-        #region Overrides of Application
+
+        private readonly SelectedYouTubeViewerStore _selectedYouTubeViewerStore;
+
+        public App()
+        {
+            _selectedYouTubeViewerStore = new SelectedYouTubeViewerStore();
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new YouTubeViewersViewModel()
+                DataContext = new YouTubeViewersViewModel(_selectedYouTubeViewerStore)
             };
 
             MainWindow.Show();
@@ -22,6 +29,5 @@ namespace YoutubeViewers.WPF
             base.OnStartup(e);
         }
 
-        #endregion
     }
 }
