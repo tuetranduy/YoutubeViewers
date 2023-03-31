@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
+using YoutubeViewers.Domain.Models;
 using YoutubeViewers.WPF.Commands;
-using YoutubeViewers.WPF.Models;
 using YoutubeViewers.WPF.Stores;
 
 namespace YoutubeViewers.WPF.ViewModels;
@@ -18,6 +18,7 @@ public class YouTubeViewerListingItemViewModel : ViewModelBase
     {
         YouTubeViewer = youTubeViewer;
         EditCommand = new OpenEditYouTubeViewerCommand(this, modalNavigationStore, youTubeViewersStore);
+        DeleteCommand = new DeleteYouTubeViewerCommand(this, youTubeViewersStore);
     }
 
     public void Update(YouTubeViewer youTubeViewer)

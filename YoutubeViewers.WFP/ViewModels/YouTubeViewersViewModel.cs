@@ -15,7 +15,7 @@ namespace YoutubeViewers.WPF.ViewModels
         public YouTubeViewersViewModel(YouTubeViewersStore youTubeViewersStore, SelectedYouTubeViewerStore selectedYouTubeViewerStore, ModalNavigationStore modalNavigationStore)
         {
             YouTubeViewerDetailViewModel = new YouTubeViewerDetailViewModel(selectedYouTubeViewerStore);
-            YouTubeViewerListingViewModel = new YouTubeViewerListingViewModel(youTubeViewersStore, selectedYouTubeViewerStore, modalNavigationStore);
+            YouTubeViewerListingViewModel = YouTubeViewerListingViewModel.LoadViewModel(youTubeViewersStore, selectedYouTubeViewerStore, modalNavigationStore);
 
             AddYouTubeViewersCommand = new OpenAddYouTubeViewerCommand(modalNavigationStore, youTubeViewersStore);
         }
