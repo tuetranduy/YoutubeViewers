@@ -9,21 +9,24 @@ namespace YoutubeViewers.WPF
     /// </summary>
     public partial class App : Application
     {
-
+        private YouTubeViewersStore _youTubeViewersStore;
         private readonly SelectedYouTubeViewerStore _selectedYouTubeViewerStore;
         private readonly ModalNavigationStore _modalNavigationStore;
 
         public App()
         {
-            _selectedYouTubeViewerStore = new SelectedYouTubeViewerStore();
+            _youTubeViewersStore = new YouTubeViewersStore();
+            _selectedYouTubeViewerStore = new SelectedYouTubeViewerStore(_youTubeViewersStore);
             _modalNavigationStore = new ModalNavigationStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            YouTubeViewersViewModel youTubeViewersViewModel = new YouTubeViewersViewModel(_youTubeViewersStore, _selectedYouTubeViewerStore, _modalNavigationStore);
+
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_modalNavigationStore, new YouTubeViewersViewModel(_selectedYouTubeViewerStore, _modalNavigationStore))
+                DataContext = new MainViewModel(_modalNavigationStore, youTubeViewersViewModel)
             };
 
             MainWindow.Show();

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:viewmodels="clr-namespace:YoutubeViewers.WPF.ViewModels"
              xmlns:dropdownMenuControl="clr-namespace:DropdownMenuControl;assembly=DropdownMenuControl"
+             xmlns:components="clr-namespace:YoutubeViewers.WPF.Components"
              d:DataContext="{d:DesignInstance Type=viewmodels:YouTubeViewerListingItemViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -29,81 +30,7 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Padding="10" TextBlock.FontSize="16">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Grid.Column="0" Text="{Binding Username}"/>
-
-                                    <dropdownMenuControl:DropdownMenu Grid.Column="1" Margin="10 0 0 0">
-
-
-                                        <Border Background="White" BorderBrush="Gray" BorderThickness="1">
-                                            <StackPanel>
-
-                                                <StackPanel.Resources>
-                                                    <Style TargetType="Button">
-                                                        <Setter Property="Background" Value="White"/>
-                                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                                        <Setter Property="Foreground" Value="Black" />
-                                                        <Setter Property="Template">
-                                                            <Setter.Value>
-                                                                <ControlTemplate TargetType="Button">
-                                                                    <Border 
-                                                                        Background="{TemplateBinding Background}"
-                                                                        Padding="{TemplateBinding Padding}"
-                                                                        Margin="{TemplateBinding Margin}"
-                                                                        Cursor="{TemplateBinding Cursor}"
-                                                                    >
-                                                                        <ContentPresenter />
-                                                                    </Border>
-                                                                </ControlTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Setter Property="Cursor" Value="Hand"/>
-                                                        <Setter Property="Padding" Value="20 10"/>
-
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Trigger.EnterActions>
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-                                                                            <ColorAnimation 
-                                                                                To="DarkGray" 
-                                                                                Duration="0:0:0.2"
-                                                                                Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                                            />
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </Trigger.EnterActions>
-
-                                                                <Trigger.ExitActions>
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-                                                                            <ColorAnimation 
-                                                                                To="Gray" 
-                                                                                Duration="0:0:0.2"
-                                                                                Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                                            />
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </Trigger.ExitActions>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </StackPanel.Resources>
-
-                                                <Button Content="Edit" Command="{Binding EditCommand}"/>
-                                                <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-                                            </StackPanel>
-                                        </Border>
-
-                                    </dropdownMenuControl:DropdownMenu>
-                                </Grid>
-                            </Border>
+                            <components:YouTubeViewerListingItem />
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
